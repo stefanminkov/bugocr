@@ -1,4 +1,4 @@
-function [tp,fn,fp,tn]=test(data,beta)
+function [tp,fn,fp,tn,guesses]=test(data,beta)
     X = data(:,1:(size(data,2)-1));
 	y = data(:,size(data,2));
     [n,d] = size(X);

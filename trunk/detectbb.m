@@ -1,17 +1,18 @@
-function guesses=detectbb(I,beta)
+function guesses=detectbb(I,beta,settings)
+    maxout = settings.maxout;
+    minout = settings.minout;
+    
     bbs = slide_window(I);
     I = double(rgb2gray(I));
     guesses = zeros(size(bbs,1),1);
     for i=1:size(bbs,1)
         i
-        try
-            window = I(bbs(i,1):bbs(i,1)+bbs(i,3),bbs(i,2):bbs(i,2)+bbs(i,4));
-            features = fgen(window);
-            if p(features,beta) > .5
-                guesses(i) = 1;
-            end
-        catch
-            continue
+        window = imcrop(I,bbs(i,:));
+        features = fgen(window);
+
+        features = normalize_feature(features',maxout(1:45),minout(1:45));
+        if p(features,beta) > .5
+            guesses(i) = 1;
         end
     end
 end

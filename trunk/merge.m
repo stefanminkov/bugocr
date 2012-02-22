@@ -1,0 +1,2 @@
+function merge(bbs)
+end

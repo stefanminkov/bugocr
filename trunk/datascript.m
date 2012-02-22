@@ -1,36 +1,42 @@
+clear all;
+
 % Collect data
-npath = 'nontext';
+npath = 'focusnontext';
 ndir = dir(npath);
 ndir = ndir(3:length(ndir));
 
-fl=19; % feature length
+fl=45; % feature length
 
 nl = length(ndir);
 ndata = zeros(nl,fl);
-for i=1:length(ndir)
+for i=1:nl
     i
-    if strcmp(ndir(i).name,'.') || strcmp(ndir(i).name,'..')
-        continue
-    end
     p = fullfile(npath,ndir(i).name);
     window = double(rgb2gray(imread(p)));
-    features = fgen(window);
-    ndata(i,:) = features;
+    fs = fgen(window);
+    ndata(i,:) = fs;
 end
 
-tpath = 'text';
+tpath = 'focustext';
 tdir = dir(tpath);
 tdir = tdir(3:length(tdir));
 tl = length(tdir);
 tdata = zeros(tl,fl);
-for i=1:length(tdir)
+for i=1:tl
     i
     p = fullfile(tpath,tdir(i).name);
     window = double(rgb2gray(imread(p)));
-    features = fgen(window);
-    tdata(i,:) = features;
+    fs = fgen(window);
+    tdata(i,:) = fs;
 end
 
 data = [ndata; tdata];
 labels = zeros(nl+tl,1);
 labels(nl+1:length(labels)) = 1;
+
+data = [data labels];
+
+order = randperm(size(data,1));
+data = data(order,:);
+
+[data,maxout,minout] = normalize_feature(data,0,0);
