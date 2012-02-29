@@ -1,6 +1,6 @@
 function bbs=slide_window(I)
     [Ir,Ic,~] = size(I);
-    wsize = [150 50];
+    wsize = [200 100];
     bbs = [];
     for w=1:size(wsize,1)
         dc = wsize(w,1);

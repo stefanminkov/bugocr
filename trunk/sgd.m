@@ -4,7 +4,7 @@ function beta=sgd(data,lambda0,mu)
 	[n,d] = size(X);
 	beta = zeros(1,d);
 	c = 10;
-	for epoch=1:10
+	for epoch=1:20
 		epoch
 		lambda = lambda0/c^epoch;
 		for i=1:n
