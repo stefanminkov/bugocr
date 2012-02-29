@@ -5,7 +5,7 @@ npath = 'focusnontext';
 ndir = dir(npath);
 ndir = ndir(3:length(ndir));
 
-fl=45; % feature length
+fl=154; % feature length
 
 nl = length(ndir);
 ndata = zeros(nl,fl);
@@ -40,3 +40,11 @@ order = randperm(size(data,1));
 data = data(order,:);
 
 [data,maxout,minout] = normalize_feature(data,0,0);
+
+settings.maxout = maxout;
+settings.minout = minout;
+
+save('data','data');
+save('settings','settings');
+
+beta=sgd(data,1,0.001);

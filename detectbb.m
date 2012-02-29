@@ -10,8 +10,8 @@ function guesses=detectbb(I,beta,settings)
         window = imcrop(I,bbs(i,:));
         features = fgen(window);
 
-        features = normalize_feature(features',maxout(1:45),minout(1:45));
-        if p(features,beta) > .5
+        features = normalize_feature(features',maxout(1:154),minout(1:154));
+        if p(features,beta) > .8
             guesses(i) = 1;
         end
     end
