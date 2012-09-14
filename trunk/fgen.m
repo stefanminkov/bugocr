@@ -1,4 +1,4 @@
-function fs=fgen(window)
+function fs=fgen(bb)
     fcollection = cell(3,1);
     fcollection{1} = @(block) sum(block(:))/length(block(:));
     fcollection{2} = @(block) var(block(:));
@@ -8,15 +8,16 @@ function fs=fgen(window)
     fs = zeros(size(fcollection,1),15);
     for i=1:length(fcollection)
         func = fcollection{i};
-        fs(i,:) = fbox(window,func);
+        fs(i,:) = fbox(bb,func);
     end
     
-    % Histogram of gradient
     fs = fs(:);
-    intensegrad = hist(window(:),50);
-    fs = [fs; intensegrad'];
     
-    mapping=getmapping(8,'u2');
-    lbpf = lbp(window,1,8,mapping,'h');
-    fs = [fs; lbpf'];   
+    h = hog(bb,20,15);
+    
+    fs = [fs; h(:)];
+    
+    %mapping=getmapping(8,'u2');
+    %lbpf = lbp(bb,1,8,mapping,'h');
+    %fs = [fs; lbpf'];   
 end

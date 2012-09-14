@@ -1,7 +1,7 @@
 function [data,maxout,minout]=normalize_feature(data,maxin,minin)
 	% This file will walk through each column of the feature table and find the range for the value.
 	% This serves the purpose to map continuous data into the [0-1] range
-	[rows,~] = size(data);
+	rows = size(data,1);
     
     if (maxin == 0) & (minin == 0)
         maxout = max(data,[],1);
