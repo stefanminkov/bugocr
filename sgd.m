@@ -1,6 +1,6 @@
 function beta=sgd(data,lambda0,mu)
 	X = data(:,1:size(data,2)-1);
-	y = data(:,size(data,2));
+	y = data(:,end);
 	[n,d] = size(X);
 	beta = zeros(1,d);
 	c = 10;
